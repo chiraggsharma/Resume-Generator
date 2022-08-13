@@ -9,12 +9,16 @@ function Editor(props) {
   const sections = props.sections;
   const information = props.information;
 
+
   const [activeSectionKey, setActiveSectionKey] = useState(
     Object.keys(sections)[0]
   );
   const [activeInformation, setActiveInformation] = useState(
     information[sections[Object.keys(sections)[0]]]
   );
+
+// Default title of each section is changes when that specific section is selected using  the useState hook.
+
   const [activeDetailIndex, setActiveDetailIndex] = useState(0);
   const [sectionTitle, setSectionTitle] = useState(
     sections[Object.keys(sections)[0]]
@@ -280,6 +284,11 @@ function Editor(props) {
       </div>
     </div>
   );
+
+// handlePointUpdate function is created to update the value in the state of the component.
+// * If first sends the value to the temp var and that temp variable is used to update the value into the state. (Check in console)
+
+
   const achievementsBody = (
     <div className={styles.detail}>
       <div className={styles.column}>
@@ -352,6 +361,8 @@ function Editor(props) {
         return null;
     }
   };
+
+  // Props are used for some common properties of the section.
 
   const handleSubmission = () => {
     switch (sections[activeSectionKey]) {
@@ -481,6 +492,8 @@ function Editor(props) {
     }
   };
 
+// Here we are adding the new chip for work exp
+
   const handleAddNew = () => {
     const details = activeInformation?.details;
     if (!details) return;
@@ -515,6 +528,8 @@ function Editor(props) {
     setActiveDetailIndex((prev) => (prev === index ? 0 : prev - 1));
   };
 
+// useEffect is used here as, if we change the section of the and that section has some common properties with the previous section, then if we switch the section, then those similar properties will be there. 
+// (With the help of is else conditions by using the ternary operator).
   useEffect(() => {
     const activeInfo = information[sections[activeSectionKey]];
     setActiveInformation(activeInfo);
@@ -562,6 +577,8 @@ function Editor(props) {
       other: typeof activeInfo?.detail !== "object" ? activeInfo.detail : "",
     });
   }, [activeSectionKey]);
+
+  // useEffect is used to update active info of the selected section, it updates whenever the key of the object is updated.
 
   useEffect(() => {
     setActiveInformation(information[sections[activeSectionKey]]);
