@@ -37,6 +37,9 @@ const Resume = forwardRef((props, ref) => {
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   };
 
+  // Dragable property used to swap diff sections
+  // Dragable, OnDragOver - Target, OnDragEnd - Source
+
   const sectionDiv = {
     [sections.workExp]: (
       <div
@@ -291,6 +294,8 @@ const Resume = forwardRef((props, ref) => {
       [sections.workExp, sections.achievement, sections.other],
     ]);
   }, []);
+
+  // Whenever the source value is changed then we will perform the action using the useEffect.
 
   useEffect(() => {
     swapSourceTarget(source, target);
